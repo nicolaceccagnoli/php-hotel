@@ -122,11 +122,12 @@
                 
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Hotel</th>
-                        <th scope="col">Descrizione</th>
-                        <th scope="col">Parcheggio</th>
-                        <th scope="col">Voto dei Viaggiatori</th>
-                        <th scope="col">Km di distanza dal centro</th>
+                        <?php 
+                            foreach ($hotels[0] as $key => $value) {?>
+                        <th scope="col">
+                            <?php echo ucfirst(str_replace('_', ' ', $key)) ?>
+                        </th>
+                    <?php } ?>
                     </tr>
                 </thead>
 
