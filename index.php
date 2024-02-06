@@ -40,6 +40,24 @@
 
     ];
 
+    if (isset($_GET['parking']) && !empty($_GET['parking'])) {
+
+        $tempArray = [];
+
+        foreach ($hotels as $hotel) {
+
+            $park = $hotel['parking'] ? 'Si' : 'No';
+
+            if ($park == $_GET['parking']) {
+
+                $tempArray[] = $hotel;
+
+            }
+
+            $hotels = $tempArray;
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,9 +78,6 @@
     </header>
 
     <main class="container">
-        <?php
-            foreach ($hotels as $hotel) { 
-        ?>
             <table class="table mt-5">
                 
                 <thead>
@@ -76,6 +91,11 @@
                 </thead>
 
                 <tbody>
+
+                    <?php
+                        foreach ($hotels as $hotel) { 
+                    ?>
+
                     <tr class="text-center">
                         <td>
                             <?php
@@ -109,12 +129,47 @@
                             ?>
                         </td>
                     </tr>
+
+                    <?php
+                        }
+                    ?>
+
                 </tbody>
 
             </table>
-        <?php
-            }
-        ?>
+
+        <section class="container mt-5">
+
+            <h3 class="mb-3">
+                Filtra gli Hotel a seconda delle tue preferenze:
+            </h3>
+
+            <form action="./index.php" method="GET">
+
+                <label for="parking">
+                    Cerchi un Hotel con il Parhceggio?
+                </label>
+
+                <select 
+                class="ps-3"
+                name="parking" id="parking">
+                    <option selected value="">
+                        Seleziona un opzione
+                    </option>
+                    <option value="Si">
+                        Sì
+                    </option>
+                    <option value="No">
+                        No
+                    </option>
+                </select>
+
+                <button type="submit" class="d-block">
+                    Filtra
+                </button>
+            </form>
+
+        </section>
     </main>
 </body>
 </html>
