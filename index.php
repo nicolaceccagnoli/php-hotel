@@ -125,7 +125,7 @@
                         <?php 
                             foreach ($hotels[0] as $key => $value) {?>
                         <th scope="col">
-                            <?php echo ucfirst(str_replace('_', ' ', $key)) ?>
+                            <?php echo ucwords(str_replace('_', ' ', $key)) ?>
                         </th>
                     <?php } ?>
                     </tr>
