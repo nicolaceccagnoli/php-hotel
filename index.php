@@ -40,22 +40,62 @@
 
     ];
 
+    #Dichiaro una variabile per il voto selezionat
+    // $selectedVote = $_GET['vote'];
+
+
+    #Creo una condizione per cui è stato scelto un valore della select del Parcheggio
     if (isset($_GET['parking']) && !empty($_GET['parking'])) {
 
+        #Dichiaro un nuovo Array Temporaneo
         $tempArray = [];
 
+        #Per ogni Hotel
         foreach ($hotels as $hotel) {
 
+            #Dichiaro una Variabile che assume valore truthy o falsy in base al valore della chiave 'parking' nei singoli hotel
             $park = $hotel['parking'] ? 'Si' : 'No';
 
+            #Se park è truthy allora prendo il valore della select
             if ($park == $_GET['parking']) {
 
+                #e aggiungo all'array temporaneo i singoli hotel
                 $tempArray[] = $hotel;
 
             }
 
-            $hotels = $tempArray;
         }
+
+        #Di base l'array hotels è riassegnato in TempArray
+        $hotels = $tempArray;
+    }
+
+    #Creo una condizione per cui è stato scelto un valore della select del Voto
+    if (isset($_GET['vote']) && !empty($_GET['vote'])) {
+
+        #Creo una variabile che converta il value della Select del Voto in un numero
+        $vote = (int) $_GET['vote'];
+
+        // var_dump($vote);
+
+        $tempArray = [];
+
+        #Per ogni Hotel
+        foreach ($hotels as $hotel) {
+
+            #Se la chiave 'vote' è maggiore del valore della Select
+            if ($hotel['vote'] >= $vote) {
+
+                # aggiungo all'array temporaneo i singoli hotel
+                $tempArray[] = $hotel;
+
+            }
+
+        }
+
+        #Di base l'array hotels è riassegnato in TempArray
+        $hotels = $tempArray;
+
     }
 
 ?>
@@ -153,7 +193,7 @@
                 <select 
                 class="ps-3"
                 name="parking" id="parking">
-                    <option selected value="">
+                    <option selected disabled value="">
                         Seleziona un opzione
                     </option>
                     <option value="Si">
@@ -164,7 +204,35 @@
                     </option>
                 </select>
 
-                <button type="submit" class="d-block">
+                <br>
+
+                <label
+                class="mt-3"
+                for="vote">
+                    Scegli l'hotel in base alla valutazione
+                </label>
+
+                <select 
+                class="ps-3"
+                name="vote" id="vote">
+                        <option selected disabled value="">
+                            Scegli un Voto
+                        </option>
+
+                        <?php
+                            for ($i = 1; $i <= 5; $i++) {
+                        ?>
+
+                        <option value="<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                        </option>
+
+                        <?php
+                            }
+                        ?>
+                </select>
+
+                <button type="submit" class="d-block mt-3">
                     Filtra
                 </button>
             </form>
